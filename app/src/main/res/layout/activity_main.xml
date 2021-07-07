@@ -7,7 +7,8 @@
     android:background="@color/colorBlack"
     tools:context=".MainActivity"
     android:paddingStart="16dp"
-    android:paddingEnd="16dp">
+    android:paddingEnd="16dp"
+    android:id="@+id/clMain">
 
     <TextView
         android:id="@+id/tvScore"
