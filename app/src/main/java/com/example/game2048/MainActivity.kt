@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity() {
         board[3][0] = 256
         board[3][2] = 512
 
-//        val numbers: MutableList<Array<Int>> = board.toMutableList()
         GridLayoutManager(
             this,
             4,
