@@ -9,30 +9,19 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    var board = arrayOf<Array<Int>>()
+    private lateinit var gameManager:GameManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val recyclerView: RecyclerView = recyclerView
         val clMain: ConstraintLayout = clMain
+        board = Array(4) { i -> Array(4) { j -> 0} }
+        gameManager = GameManager()
 
-        val numbers = mutableListOf(
-            0, 2, 0, 4, 8, 16, 32, 0, 64, 128, 0, 256, 512, 1024, 0, 2048
-        )
-
-        GridLayoutManager(
-            this,
-            4,
-            RecyclerView.VERTICAL,
-            false
-        ).apply {
-            recyclerView.layoutManager = this
-        }
-
-        recyclerView.adapter = GameAdapter(numbers, this)
-
-
-
+        plotNumbersOnBoard()
         recyclerView.setOnTouchListener(object : SwipeTouchListener(this@MainActivity) {
             override fun onSwipeLeft() {
                 super.onSwipeLeft()
@@ -64,5 +53,28 @@ class MainActivity : AppCompatActivity() {
                     .show()
             }
         })
+    }
+
+    fun plotNumbersOnBoard(){
+        board[0][1] = 2
+        board[0][3] = 4
+        board[1][0] = 8
+        board[1][2] = 16
+        board[2][1] = 32
+        board[2][3] = 128
+        board[3][0] = 256
+        board[3][2] = 512
+
+//        val numbers: MutableList<Array<Int>> = board.toMutableList()
+        GridLayoutManager(
+            this,
+            4,
+            RecyclerView.VERTICAL,
+            false
+        ).apply {
+            recyclerView.layoutManager = this
+        }
+
+        recyclerView.adapter = GameAdapter(gameManager.convertArrayToList(board), this)
     }
 }
